@@ -15,6 +15,7 @@ import android.os.IBinder
 import android.provider.MediaStore
 import androidx.annotation.RequiresApi
 import androidx.window.layout.WindowMetricsCalculator
+import com.dinesh.screenrecorderapp.config.ScreenRecordConfig
 import com.dinesh.screenrecorderapp.notification.NotificationHelper
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -26,6 +27,7 @@ import kotlinx.coroutines.launch
 import java.io.File
 import java.io.FileInputStream
 
+@RequiresApi(Build.VERSION_CODES.O)
 class ScreenRecordService : Service() {
     override fun onBind(intent: Intent?): IBinder? {
         return null
@@ -82,6 +84,7 @@ class ScreenRecordService : Service() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         when(intent?.action) {
             STOP_RECORDING -> {
@@ -109,10 +112,10 @@ class ScreenRecordService : Service() {
     private fun startRecording(intent: Intent?) {
         // Retrieve the recording configuration based on the Android version
         val config = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent?.getParcelableExtra(KEY_RECORDING_CONFIG, ScreenRecordService::class.java)
+            intent?.getParcelableExtra(KEY_RECORDING_CONFIG, ScreenRecordConfig::class.java)
         } else {
             @Suppress("DEPRECATION")
-            intent?.getParcelableExtra<ScreenRecordService>(KEY_RECORDING_CONFIG)
+            intent?.getParcelableExtra<ScreenRecordConfig>(KEY_RECORDING_CONFIG)
         }
 
         // Ensure the configuration is not null
