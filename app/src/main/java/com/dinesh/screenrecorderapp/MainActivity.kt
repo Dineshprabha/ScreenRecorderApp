@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import com.dinesh.screenrecorderapp.ui.ScreenRecorderApp
 import com.dinesh.screenrecorderapp.ui.theme.ScreenRecorderAppTheme
 
 class MainActivity : ComponentActivity() {
@@ -11,9 +12,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            ScreenRecorderAppTheme {
-
-            }
+            ScreenRecorderApp()
         }
     }
 }
